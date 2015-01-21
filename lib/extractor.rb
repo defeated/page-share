@@ -13,15 +13,18 @@ class Extractor
     end
 
     title       = document.at('meta[@property="og:title"]/@content') ||
+                  document.at('meta[@name="twitter:title"]/@content') ||
                   document.at('title/text()')
 
     description = document.at('meta[@property="og:description"]/@content') ||
+                  document.at('meta[@name="twitter:description"]/@content') ||
                   document.at('meta[@name="description"]/@content')
 
     canonical   = document.at('link[@rel="canonical"]/@href') ||
                   document.at('meta[@property="og:url"]/@content')
 
-    image       = document.at('meta[@property="og:image"]/@content')
+    image       = document.at('meta[@property="og:image"]/@content') ||
+                  document.at('meta[@name="twitter:image:src"]/@content')
 
     favicon     = document.at('link[@rel="shortcut icon"]/@href') ||
                   document.at('link[@rel="icon"]/@href')

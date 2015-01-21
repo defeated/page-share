@@ -1,7 +1,8 @@
 ## about
 
 A tiny service for scraping details about a webpage, for use in content
-sharing. Uses naive heuristics like meta tags and open graph protocol.
+sharing. Uses naive heuristics like meta tags, open graph protocol and
+twitter card markup.
 
 ## prerequisites
 
