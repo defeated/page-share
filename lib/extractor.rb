@@ -18,13 +18,13 @@ class Extractor
     description = document.at('meta[@property="og:description"]/@content') ||
                   document.at('meta[@name="description"]/@content')
 
-    canonical   = document.at('link[@rel=canonical]/@href') ||
+    canonical   = document.at('link[@rel="canonical"]/@href') ||
                   document.at('meta[@property="og:url"]/@content')
 
     image       = document.at('meta[@property="og:image"]/@content')
 
     favicon     = document.at('link[@rel="shortcut icon"]/@href') ||
-                  document.at('link[@rel=icon]/@href')
+                  document.at('link[@rel="icon"]/@href')
 
     Page.new(
       title.to_s,
