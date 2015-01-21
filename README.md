@@ -3,9 +3,18 @@
 A tiny service for scraping details about a webpage, for use in content
 sharing. Uses naive heuristics like meta tags and open graph protocol.
 
+## prerequisites
+
+  `ruby 2.2.0`
+
+## setup
+
+  1. `bundle install`
+  2. `bin/puma -C config/puma.rb`
+
 ## usage
 
-`curl --form u=http://yahoo.com http://0.0.0.0:5000`
+`curl --form u=http://yahoo.com http://0.0.0.0:3000`
 
 ## result
 
