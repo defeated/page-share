@@ -3,6 +3,10 @@ require 'typhoeus'
 class Fetcher
   attr_reader :url, :options
 
+  def self.cache=(provider)
+    Typhoeus::Config.cache = provider
+  end
+
   def initialize(url, options = {})
     @url = url
     @options = {

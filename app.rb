@@ -1,13 +1,18 @@
 require 'sinatra'
 require 'json'
+require './lib/cacher'
 require './lib/fetcher'
 require './lib/extractor'
 
-enable :logging
-disable :run
-disable :sessions
-disable :method_override
-disable :static
+configure do
+  enable :logging
+  disable :run
+  disable :sessions
+  disable :method_override
+  disable :static
+
+  Fetcher.cache = Cacher.new
+end
 
 post '/' do
   url = params[:u]
