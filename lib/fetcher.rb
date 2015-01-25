@@ -6,10 +6,11 @@ class Fetcher
   def initialize(url, options = {})
     @url = url
     @options = {
-      followlocation: true,
-      connecttimeout: 3,
-      timeout:        3,
-      headers:        { 'User-Agent' => USER_AGENT }
+      accept_encoding:  'gzip',
+      followlocation:   true,
+      connecttimeout:   3,
+      timeout:          3,
+      headers:          { 'User-Agent' => USER_AGENT }
     }.merge options
   end
 
