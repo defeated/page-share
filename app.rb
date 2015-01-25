@@ -14,9 +14,16 @@ post '/' do
   result = Fetcher.new(url).fetch!
 
   if result.success?
-    content_type :json
     details = Extractor.new(result.content).extract!
-    details.to_h.to_json
+    payload = details.to_h.to_json
+
+    if callback = params[:callback]
+      content_type :js
+      "#{ callback }( #{ payload } )"
+    else
+      content_type :json
+      payload
+    end
   else
     status 500
     result.content
