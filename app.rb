@@ -16,24 +16,21 @@ class PageShareApp < Sinatra::Base
     url = Base64.decode64 params[:encoded_url]
     result = Fetcher.new(url).fetch!
 
-    if result.success?
-      details = Extractor.new(result.content).extract!
-      type    = :json
-      payload = details.to_h.to_json
-      key     = "#{ url }:#{ payload }"
+    halt 500, result.content unless result.success?
 
-      if callback = params[:callback]
-        type = :js
-        payload = "#{ callback }( #{ payload } );"
-      end
+    details = Extractor.new(result.content).extract!
+    type    = :json
+    payload = details.to_h.to_json
+    key     = "#{ url }:#{ payload }"
 
-      content_type type
-      expires 5.minutes, :public, :must_revalidate
-      etag Etagger.new(key).hash
-      payload
-    else
-      status 500
-      result.content
+    if callback = params[:callback]
+      type = :js
+      payload = "#{ callback }( #{ payload } );"
     end
+
+    content_type type
+    expires 5.minutes, :public, :must_revalidate
+    etag Etagger.new(key).hash
+    payload
   end
 end
