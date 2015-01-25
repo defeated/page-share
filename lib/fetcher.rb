@@ -1,22 +1,20 @@
 require 'typhoeus'
 
 class Fetcher
-  attr_reader :url
+  attr_reader :url, :options
 
-  def initialize(url)
+  def initialize(url, options = {})
     @url = url
+    @options = {
+      followlocation: true,
+      connecttimeout: 3,
+      timeout:        3,
+      headers:        { 'User-Agent' => USER_AGENT }
+    }.merge options
   end
 
   def fetch!
-    options = {
-      followlocation: true,
-      timeout:        2,
-      connecttimeout: 2,
-      headers:        { 'User-Agent' => USER_AGENT }
-    }
-
     response = Typhoeus.get url, options
-
     result = Result.new response.success?
     result.content = result.success? ? response.body : response.return_message
     result
