@@ -4,6 +4,7 @@ require 'base64'
 require './lib/cacher'
 require './lib/fetcher'
 require './lib/extractor'
+require './lib/etagger'
 
 configure do
   enable :logging
@@ -21,15 +22,19 @@ get '/:encoded_url' do
 
   if result.success?
     details = Extractor.new(result.content).extract!
+    type    = :json
     payload = details.to_h.to_json
+    key     = "#{ url }:#{ payload }"
 
     if callback = params[:callback]
-      content_type :js
-      "#{ callback }( #{ payload } )"
-    else
-      content_type :json
-      payload
+      type = :js
+      payload = "#{ callback }( #{ payload } )"
     end
+
+    content_type type
+    expires 5.minutes, :public, :must_revalidate
+    etag Etagger.new(key).hash
+    payload
   else
     status 500
     result.content
