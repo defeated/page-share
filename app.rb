@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'json'
+require 'base64'
 require './lib/cacher'
 require './lib/fetcher'
 require './lib/extractor'
@@ -14,8 +15,8 @@ configure do
   Fetcher.cache = Cacher.new
 end
 
-post '/' do
-  url = params[:u]
+get '/:encoded_url' do
+  url = Base64.decode64 params[:encoded_url]
   result = Fetcher.new(url).fetch!
 
   if result.success?

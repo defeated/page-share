@@ -15,7 +15,9 @@ twitter card markup.
 
 ## usage
 
-`curl --form u=http://yahoo.com http://0.0.0.0:3000`
+Send a base64-encoded URL (e.g. yahoo.com):
+
+`curl http://0.0.0.0:3000/aHR0cDovL3lhaG9vLmNvbS8=`
 
 ## result
 
