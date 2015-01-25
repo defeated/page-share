@@ -28,7 +28,7 @@ get '/:encoded_url' do
 
     if callback = params[:callback]
       type = :js
-      payload = "#{ callback }( #{ payload } )"
+      payload = "#{ callback }( #{ payload } );"
     end
 
     content_type type
