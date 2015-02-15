@@ -4,13 +4,17 @@ require 'nokogiri'
 class Extractor
   attr_reader :content
 
-  def initialize(content)
+  def initialize(source, content)
+    @source = source
     @content = content
   end
 
   def extract
     parsed = Nokogiri::HTML content { |cfg| cfg.noerror.nonet }
-    Document.new parsed
+    details = Document.new(parsed).to_h
+    details.tap do |hash|
+      hash[:source] = @source
+    end
   end
 
   private

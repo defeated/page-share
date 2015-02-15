@@ -18,7 +18,7 @@ class PageShareApp < Sinatra::Base
 
     halt 500, result.content unless result.success?
 
-    details = Extractor.new(result.content).extract
+    details = Extractor.new(url, result.content).extract
     type    = :json
     payload = details.to_h.to_json
     key     = "#{ url }:#{ payload }"
