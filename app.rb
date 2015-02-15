@@ -30,7 +30,7 @@ class PageShareApp < Sinatra::Base
 
     content_type type
     expires 5.minutes, :public, :must_revalidate
-    etag Etagger.new(key).hash
+    etag Etagger.new(key).tag
     payload
   end
 end

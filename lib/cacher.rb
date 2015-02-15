@@ -19,6 +19,10 @@ class Cacher
     client.write request.cache_key, response
   end
 
+  def clear
+    client.clear
+  end
+
   private
 
   attr_reader :client
