@@ -10,7 +10,7 @@ class Extractor
   end
 
   def extract
-    parsed = Nokogiri::HTML content { |cfg| cfg.noerror.nonet }
+    parsed = Nokogiri::HTML(content) { |cfg| cfg.noerror.nonet }
     details = Document.new(parsed).to_h
     details.tap do |hash|
       hash[:source] = @source
