@@ -13,7 +13,7 @@ class PageShareApp < Sinatra::Base
   end
 
   get '/:encoded_url' do
-    url = Base64.decode64 params[:encoded_url]
+    url = Base64.urlsafe_decode64 params[:encoded_url]
     result = Fetcher.new(url).fetch
 
     halt 500, result.content unless result.success?
