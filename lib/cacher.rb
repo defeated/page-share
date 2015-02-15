@@ -2,6 +2,7 @@ require 'active_support'
 require 'active_support/core_ext/numeric/conversions'
 require 'active_support/cache'
 
+# a simple in-memory cache. cacheable objects must implement :cache_key
 class Cacher
   def initialize(options = {})
     @options = {
